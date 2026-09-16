@@ -1,0 +1,66 @@
+cabal-version: 3.14
+name: raylib-hs
+version: 0.1.0.0
+synopsis: Haskell bindings for Raylib
+description: Haskell bindings for Raylib.
+category: Game Development
+license: MIT
+license-file: LICENSE
+author: nikica
+maintainer: kooh.kooh2@gmail.com
+extra-source-files: README.md
+extra-doc-files: CHANGELOG.md
+
+common shared-settings
+    ghc-options:
+      -Wall
+      -Wno-name-shadowing
+      -Wno-type-defaults
+    default-language: GHC2024
+    default-extensions:
+      DuplicateRecordFields,
+      NoFieldSelectors,
+      OverloadedRecordDot,
+      OverloadedStrings,
+      LambdaCase,
+      MultiWayIf,
+      DerivingVia,
+      NamedFieldPuns,
+      TypeApplications,
+      CApiFFI
+    build-depends:
+      base ^>=4.21.0.0
+
+library
+    import: shared-settings
+    exposed-modules:
+      Raylib
+      Raylib.Audio
+      Raylib.Core
+      Raylib.Input
+      Raylib.Shapes
+      Raylib.Text
+      Raylib.Types
+    other-modules:
+      Raylib.Internal.Foreign.Audio
+      Raylib.Internal.Foreign.Core
+      Raylib.Internal.Foreign.Input
+      Raylib.Internal.Foreign.Shapes
+      Raylib.Internal.Foreign.Text
+      Raylib.Internal.Utils
+    hs-source-dirs: src
+    c-sources:
+      cbits/raylib_shim.c
+    pkgconfig-depends:
+      raylib >= 5.0
+
+executable example
+    import: shared-settings
+    main-is: Main.hs
+    hs-source-dirs: example
+    build-depends:
+      raylib-hs
+
+source-repository head
+    type: git
+    location: https://github.com/n1kica/raylib-hs
