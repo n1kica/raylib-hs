@@ -3,8 +3,7 @@ module Raylib.Shapes (
     drawRectangleRec,
 ) where
 
-import Foreign.Marshal.Alloc (alloca)
-import Foreign.Storable (poke)
+import Foreign.Marshal.Utils (with)
 import Raylib.Internal.Foreign.Shapes (cDrawRectangle, cDrawRectangleRec)
 import Raylib.Internal.Utils (colorToWord32)
 import Raylib.Types (Color, Rectangle)
@@ -20,6 +19,5 @@ drawRectangle posX posY width height color =
 
 drawRectangleRec :: Rectangle -> Color -> IO ()
 drawRectangleRec rect color =
-    alloca $ \rectPtr -> do
-        poke rectPtr rect
+    with rect $ \rectPtr ->
         cDrawRectangleRec rectPtr (colorToWord32 color)
