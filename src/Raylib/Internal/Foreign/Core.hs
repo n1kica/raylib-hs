@@ -7,6 +7,7 @@ module Raylib.Internal.Foreign.Core (
     cGetFrameTime,
     cDrawFPS,
     cClearBackground,
+    cSetTargetFPS,
     cGetScreenWidth,
     cGetScreenHeight,
     cGetRenderWidth,
@@ -53,3 +54,6 @@ foreign import capi "raylib.h GetRenderWidth"
 
 foreign import capi "raylib.h GetRenderHeight"
     cGetRenderHeight :: IO CInt
+
+foreign import capi "raylib.h SetTargetFPS"
+    cSetTargetFPS :: CInt -> IO ()

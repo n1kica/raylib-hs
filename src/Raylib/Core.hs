@@ -8,6 +8,7 @@ module Raylib.Core (
     clearBackground,
     getFrameTime,
     drawFPS,
+    setTargetFPS,
     getScreenWidth,
     getScreenHeight,
     getRenderWidth,
@@ -27,6 +28,7 @@ import Raylib.Internal.Foreign.Core (
     cInitWindow,
     cWindowShouldClose,
     cGetScreenWidth,
+    cSetTargetFPS,
     cGetScreenHeight,
     cGetRenderWidth,
     cGetRenderHeight,
@@ -74,3 +76,6 @@ getRenderWidth = fromIntegral <$> cGetRenderWidth
 
 getRenderHeight :: IO Int
 getRenderHeight = fromIntegral <$> cGetRenderHeight
+
+setTargetFPS :: Int -> IO ()
+setTargetFPS fps = cSetTargetFPS (fromIntegral fps)
