@@ -8,20 +8,28 @@ module Raylib.Core (
     clearBackground,
     getFrameTime,
     drawFPS,
+    getScreenWidth,
+    getScreenHeight,
+    getRenderWidth,
+    getRenderHeight,
 )
 where
 
 import Control.Monad (unless)
 import Foreign.C.String (withCString)
 import Raylib.Internal.Foreign.Core (
-    c_beginDrawing,
-    c_clearBackground,
-    c_closeWindow,
-    c_drawFPS,
-    c_endDrawing,
-    c_getFrameTime,
-    c_initWindow,
-    c_windowShouldClose,
+    cBeginDrawing,
+    cClearBackground,
+    cCloseWindow,
+    cDrawFPS,
+    cEndDrawing,
+    cGetFrameTime,
+    cInitWindow,
+    cWindowShouldClose,
+    cGetScreenWidth,
+    cGetScreenHeight,
+    cGetRenderWidth,
+    cGetRenderHeight,
  )
 import Raylib.Internal.Utils (colorToWord32)
 import Raylib.Types (Color)
@@ -29,28 +37,40 @@ import Raylib.Types (Color)
 initWindow :: Int -> Int -> String -> IO ()
 initWindow width height title =
     withCString title $
-        c_initWindow (fromIntegral width) (fromIntegral height)
+        cInitWindow (fromIntegral width) (fromIntegral height)
 
 closeWindow :: IO ()
-closeWindow = c_closeWindow
+closeWindow = cCloseWindow
 
 beginDrawing :: IO ()
-beginDrawing = c_beginDrawing
+beginDrawing = cBeginDrawing
 
 endDrawing :: IO ()
-endDrawing = c_endDrawing
+endDrawing = cEndDrawing
 
 windowShouldClose :: IO Bool
-windowShouldClose = (/= 0) <$> c_windowShouldClose
+windowShouldClose = (/= 0) <$> cWindowShouldClose
 
 unlessWindowShouldClose :: IO () -> IO ()
 unlessWindowShouldClose action = windowShouldClose >>= \shouldClose -> unless shouldClose action
 
 clearBackground :: Color -> IO ()
-clearBackground color = c_clearBackground (colorToWord32 color)
+clearBackground color = cClearBackground (colorToWord32 color)
 
 getFrameTime :: IO Float
-getFrameTime = realToFrac <$> c_getFrameTime
+getFrameTime = realToFrac <$> cGetFrameTime
 
 drawFPS :: Int -> Int -> IO ()
-drawFPS x y = c_drawFPS (fromIntegral x) (fromIntegral y)
+drawFPS x y = cDrawFPS (fromIntegral x) (fromIntegral y)
+
+getScreenWidth :: IO Int
+getScreenWidth = fromIntegral <$> cGetScreenWidth
+
+getScreenHeight :: IO Int
+getScreenHeight = fromIntegral <$> cGetScreenHeight
+
+getRenderWidth :: IO Int
+getRenderWidth = fromIntegral <$> cGetRenderWidth
+
+getRenderHeight :: IO Int
+getRenderHeight = fromIntegral <$> cGetRenderHeight

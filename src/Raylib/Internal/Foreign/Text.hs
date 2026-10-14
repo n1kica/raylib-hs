@@ -1,5 +1,5 @@
 module Raylib.Internal.Foreign.Text (
-    c_drawText,
+    cDrawText,
     cGetFontDefault,
     cMeasureTextEx,
     cDrawTextEx,
@@ -12,7 +12,7 @@ import Foreign.Ptr (Ptr)
 import Raylib.Types (Vector2)
 
 foreign import ccall "HSDrawText"
-    c_drawText :: CString -> CInt -> CInt -> CInt -> Word32 -> IO ()
+    cDrawText :: CString -> CInt -> CInt -> CInt -> Word32 -> IO ()
 
 foreign import ccall "HSGetFontDefault"
     cGetFontDefault :: Ptr () -> IO ()

@@ -14,7 +14,7 @@ import Foreign.Marshal.Utils (with)
 import Foreign.Ptr (Ptr, castPtr)
 import Foreign.Storable (Storable (..), peekByteOff, pokeByteOff)
 import Raylib.Internal.Foreign.Text (
-    c_drawText,
+    cDrawText,
     cDrawTextEx,
     cGetFontDefault,
     cMeasureTextEx,
@@ -59,7 +59,7 @@ getFontDefault = alloca $ \font -> cGetFontDefault (castPtr font) >> peek font
 drawText :: String -> Int -> Int -> Int -> Color -> IO ()
 drawText text x y fontSize color =
     withCString text $ \cText ->
-        c_drawText cText (fromIntegral x) (fromIntegral y) (fromIntegral fontSize) (colorToWord32 color)
+        cDrawText cText (fromIntegral x) (fromIntegral y) (fromIntegral fontSize) (colorToWord32 color)
 
 drawTextEx :: Font -> String -> Vector2 -> Float -> Float -> Color -> IO ()
 drawTextEx font text position fontSize spacing tint =

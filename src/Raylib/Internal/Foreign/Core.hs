@@ -1,12 +1,16 @@
 module Raylib.Internal.Foreign.Core (
-    c_initWindow,
-    c_beginDrawing,
-    c_endDrawing,
-    c_windowShouldClose,
-    c_closeWindow,
-    c_getFrameTime,
-    c_drawFPS,
-    c_clearBackground,
+    cInitWindow,
+    cBeginDrawing,
+    cEndDrawing,
+    cWindowShouldClose,
+    cCloseWindow,
+    cGetFrameTime,
+    cDrawFPS,
+    cClearBackground,
+    cGetScreenWidth,
+    cGetScreenHeight,
+    cGetRenderWidth,
+    cGetRenderHeight,
 )
 where
 
@@ -15,25 +19,37 @@ import Foreign.C.String (CString)
 import Foreign.C.Types (CBool (..), CFloat (..), CInt (..))
 
 foreign import capi "raylib.h InitWindow"
-    c_initWindow :: CInt -> CInt -> CString -> IO ()
+    cInitWindow :: CInt -> CInt -> CString -> IO ()
 
 foreign import capi "raylib.h BeginDrawing"
-    c_beginDrawing :: IO ()
+    cBeginDrawing :: IO ()
 
 foreign import capi "raylib.h EndDrawing"
-    c_endDrawing :: IO ()
+    cEndDrawing :: IO ()
 
 foreign import capi "raylib.h WindowShouldClose"
-    c_windowShouldClose :: IO CBool
+    cWindowShouldClose :: IO CBool
 
 foreign import capi "raylib.h CloseWindow"
-    c_closeWindow :: IO ()
+    cCloseWindow :: IO ()
 
 foreign import capi "raylib.h GetFrameTime"
-    c_getFrameTime :: IO CFloat
+    cGetFrameTime :: IO CFloat
 
 foreign import capi "raylib.h DrawFPS"
-    c_drawFPS :: CInt -> CInt -> IO ()
+    cDrawFPS :: CInt -> CInt -> IO ()
 
 foreign import ccall "HSClearBackground"
-    c_clearBackground :: Word32 -> IO ()
+    cClearBackground :: Word32 -> IO ()
+
+foreign import capi "raylib.h GetScreenWidth"
+    cGetScreenWidth :: IO CInt
+
+foreign import capi "raylib.h GetScreenHeight"
+    cGetScreenHeight :: IO CInt
+
+foreign import capi "raylib.h GetRenderWidth"
+    cGetRenderWidth :: IO CInt
+
+foreign import capi "raylib.h GetRenderHeight"
+    cGetRenderHeight :: IO CInt
