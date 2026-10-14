@@ -32,6 +32,16 @@ void HSDrawRectangleRec(const Rectangle *rect, uint32_t color) {
     DrawRectangleRec(*rect, GetColor(color));
 }
 
+void HSDrawRectangleV(const Vector2 *position, const Vector2 *size,
+    uint32_t color) {
+    DrawRectangleV(*position, *size, GetColor(color));
+}
+
+void HSDrawRectanglePro(const Rectangle *rect, const Vector2 *origin,
+    float rotation, uint32_t color) {
+    DrawRectanglePro(*rect, *origin, rotation, GetColor(color));
+}
+
 void HSGetMousePosition(Vector2 *result) {
     *result = GetMousePosition();
 }
