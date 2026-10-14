@@ -113,10 +113,12 @@ module Raylib.Input (
     isKeyDown,
     isKeyPressed,
     isKeyPressedRepeat,
+    isKeyPressedOrRepeat,
     isMouseButtonPressed,
     getMousePosition,
 ) where
 
+import Control.Applicative (liftA2)
 import Foreign.Marshal.Alloc (alloca)
 import Foreign.Storable (peek)
 import Raylib.Internal.Foreign.Input (
@@ -268,6 +270,9 @@ isKeyPressed key = (/= 0) <$> cIsKeyPressed (fromIntegral key)
 
 isKeyPressedRepeat :: Int -> IO Bool
 isKeyPressedRepeat key = (/= 0) <$> cIsKeyPressedRepeat (fromIntegral key)
+
+isKeyPressedOrRepeat :: Int -> IO Bool
+isKeyPressedOrRepeat key = liftA2 (||) (isKeyPressed key) (isKeyPressedRepeat key)
 
 isMouseButtonPressed :: MouseButton -> IO Bool
 isMouseButtonPressed button =
