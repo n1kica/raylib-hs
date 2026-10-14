@@ -7,6 +7,7 @@ module Raylib.Internal.Foreign.Core (
     cGetFrameTime,
     cDrawFPS,
     cClearBackground,
+    cSetConfigFlags,
     cSetTargetFPS,
     cGetScreenWidth,
     cGetScreenHeight,
@@ -17,7 +18,7 @@ where
 
 import Data.Word (Word32)
 import Foreign.C.String (CString)
-import Foreign.C.Types (CBool (..), CFloat (..), CInt (..))
+import Foreign.C.Types (CBool (..), CFloat (..), CInt (..), CUInt (..))
 
 foreign import capi "raylib.h InitWindow"
     cInitWindow :: CInt -> CInt -> CString -> IO ()
@@ -57,3 +58,6 @@ foreign import capi "raylib.h GetRenderHeight"
 
 foreign import capi "raylib.h SetTargetFPS"
     cSetTargetFPS :: CInt -> IO ()
+
+foreign import capi "raylib.h SetConfigFlags"
+    cSetConfigFlags :: CUInt -> IO ()
